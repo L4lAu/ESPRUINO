@@ -1,19 +1,24 @@
 I2C1.setup();
-let lcd = require("HD44780").connectI2C(I2C1, 0x27, 20, 4);
+let lcd = require("HD44780").connectI2C(I2C1);
+const POT = 34;
 
-let texto = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
-let start = 0;
-const width = 16;
+let smile = [
+        0b00000,
+        0b01010,
+        0b01010,
+        0b00000,
+        0b10001,
+        0b01110,
+        0b00000,
+        0b00000,
+    ]
+lcd.createChar(0, smile);
 
-texto = texto + " ".repeat(width);
+setInterval (function() 
+{
+    let valorPOT = analogRead(POT) * 100;
 
-function show() {
-    lcd.setCursor(0, 0);
-    lcd.print(texto.substr(start, width));
-    start++;
-    if (start > texto.length - width) start = 0;
-}
+    lcd.setCursor(0,0)
+    lcd.write(0)
 
-lcd.clear();
-show();
-setInterval(show, 250);
+}, 100)
