@@ -14,8 +14,7 @@ let amongus = [
     0b00000
 ];
 
-lcd.createChar(0, amongus)
+lcd.createChar(0, amongus);
 
-setInterval (function ()  {
-    lcd.write(0)
- }, 100)
+lcd.setCursor(0,0);
+lcd.write(0);
